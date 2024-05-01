@@ -5,6 +5,7 @@ node_modules
 .DS_Store
 *.local
 *.log*
+.astro
 
 # Dist
 dist/
