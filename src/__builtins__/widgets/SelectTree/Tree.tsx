@@ -4,7 +4,7 @@ import cls from 'classnames'
 import { debounce, isArray, isFunction } from 'radash'
 
 import { useControllableValue, usePrefixCls } from '../../hooks'
-import { parseSimpleTreeData, toArr } from '../../utils'
+import { findTreeNodeById, parseSimpleTreeData, toArr } from '../../utils'
 import { DownOutlinedIcon, ExpandOutlinedIcon, LoadingIcon, SearchOutlinedIcon, UpOutlinedIcon } from '../../widgets'
 import { useSelectTreeRequest } from './hooks'
 
@@ -131,6 +131,7 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
    * @description 在 onChangeHandler 中已经处理，此处再次处理是为了外部传入的 props.defaultValue 或 props.value 的格式
    */
   const calcValue = useMemo(() => {
+    if (!controllableValue) { return controllableValue }
     if (!labelInValue) { return controllableValue }
 
     const valueProp = fieldNames?.value ?? 'value'
@@ -145,8 +146,15 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
 
   /**
    * @title 处理 AntdSelect 数据流转格式, 如果是 labelInValue 模式，则需要填充 value 和 label 属性
+   * @notice ❌ Warning: `triggerNode` is deprecated. Please consider decoupling data with node.
+   * @notice ✅ 没办法从 triggerNode 获取额外的属性，索性直接去数据源获取
    */
-  const onChangeHandler = useCallback((valueParam: any) => {
+  const onChangeHandler = useCallback((valueParam: any, _labelList: any, _extra: any) => {
+    if (!valueParam) {
+      onChange(valueParam)
+      return
+    }
+
     if (!labelInValue) {
       onChange(valueParam)
       return
@@ -157,10 +165,24 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
     const aValue = toArr(valueParam).map((item) => {
       const value = item.value
       const label = item.label ?? value
-      return { value, [valueProp]: value, label, [labelProp]: label }
+
+      // 直接从数据源获取额外的属性
+      let option: any = null
+      const aOption: any[] = (request ? dataSource : treeData) ?? []
+      if (treeDataSimpleMode) {
+        // 数据源: 拍平的数据源
+        option = aOption.find(o => o?.[valueProp] === value)
+      }
+      else {
+        // 数据源: 树形结构的数据源
+        const { children: _, ...restOption } = findTreeNodeById(aOption, valueProp, value) || {}
+        option = restOption
+      }
+      return { ...option, value, [valueProp]: value, label, [labelProp]: label }
     })
+
     onChange(isArray(valueParam) ? aValue : aValue[0])
-  }, [labelInValue, fieldNames?.value, fieldNames?.label, onChange])
+  }, [labelInValue, fieldNames?.value, fieldNames?.label, onChange, treeDataSimpleMode, request, dataSource, treeData])
 
   /**
    * @title 重写 tag 的 onClose 事件，通过索引删除选项
@@ -177,6 +199,8 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
     const newValues = controllableValue.filter((_item, idx) => idx !== removeIndex)
     onChange(newValues)
   }, [fieldNames?.value, controllableValue, onChange])
+
+  // ======================================================
 
   /**
    * @title 自定义下拉列表为空时显示的内容

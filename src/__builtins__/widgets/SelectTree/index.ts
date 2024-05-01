@@ -1,2 +1,2 @@
 export { SelectTree } from './Tree'
-export type { ISelectTreeEvent, ISelectTreeResponse, ILoupeRenderProps, ISelectTreeProps } from './types'
+export type { ISelectTreeEvent, ISelectTreeResponse, ISelectTreeLoupeRenderProps, ISelectTreeProps } from './types'

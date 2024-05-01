@@ -37,3 +37,24 @@ export function parseSimpleTreeData(treeData?: any[], id = 'id', pId = 'pId', ro
 
   return rootNodeList
 }
+
+/**
+ * @title 从树形结构中获取指定节点
+ * @param tree 树形结构数据源
+ * @param valueKey 主键key值
+ * @param nodeId 指定节点的属性值
+ */
+export function findTreeNodeById(tree: any[], valueKey: string, nodeId: any) {
+  for (const node of tree) {
+    if (node[valueKey] === nodeId) {
+      return node
+    }
+    if (node.children) {
+      const result = findTreeNodeById(node.children, valueKey, nodeId)
+      if (result) {
+        return result
+      }
+    }
+  }
+  return null
+}

@@ -44,7 +44,7 @@ export interface ISelectTreeCustomRequestProps<T = any> {
 
 // ===========================================================
 
-export interface ILoupeRenderProps {
+export interface ISelectTreeLoupeRenderProps {
   // 勾选
   isMultiple?: boolean
   labelInValue?: boolean
@@ -68,7 +68,7 @@ export interface ISelectTreeCustomLoupeProps {
   /**
    * 自定义传入放大镜的组件
    */
-  loupeRender?: FunctionComponent<ILoupeRenderProps> | ComponentClass<ILoupeRenderProps>
+  loupeRender?: FunctionComponent<ISelectTreeLoupeRenderProps> | ComponentClass<ISelectTreeLoupeRenderProps>
 }
 
 // ===========================================================

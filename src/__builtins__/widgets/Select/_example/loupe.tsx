@@ -7,13 +7,13 @@ import { Select } from '../'
 import { generateOptions, generatePromise } from './base'
 
 import type React from 'react'
-import type { ILoupeRenderProps } from '../types'
+import type { ISelectLoupeRenderProps } from '../types'
 
 /**
  * @title 自定义的 loupeRender 组件
  * 此时的 params 可传递标识区分 首次加载，分页变化，搜索条件变化 等细化接口请求
  */
-const SelectLoupeModal: React.FC<ILoupeRenderProps> = (props) => {
+const SelectLoupeModal: React.FC<ISelectLoupeRenderProps> = (props) => {
   const { isMultiple, labelInValue, valueProp, labelProp: _, value, onChange, onCancel, onSearch } = props
 
   const [selectedRowKeys, setSelectedRowKeys] = useState(value)

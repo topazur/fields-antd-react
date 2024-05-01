@@ -7,13 +7,13 @@ import { SelectTree } from '../'
 import { genTileTreeData, generatePromise } from './base'
 
 import type React from 'react'
-import type { ILoupeRenderProps } from '../types'
+import type { ISelectTreeLoupeRenderProps } from '../types'
 
 /**
  * @title 自定义的 loupeRender 组件
  * 此时的 params 可传递标识区分 首次加载，分页变化，搜索条件变化 等细化接口请求
  */
-const SelectLoupeModal: React.FC<ILoupeRenderProps> = (props) => {
+const SelectLoupeModal: React.FC<ISelectTreeLoupeRenderProps> = (props) => {
   const { isMultiple, labelInValue, valueProp, labelProp: _, value, onChange, onCancel, onSearch } = props
 
   const [selectedRowKeys, setSelectedRowKeys] = useState(value)
@@ -36,8 +36,6 @@ const SelectLoupeModal: React.FC<ILoupeRenderProps> = (props) => {
   useEffect(() => {
     run({ type: 'initialized', pageNo: 1, pageSize: 20 })
   }, [])
-
-  console.log('[vscode-log] loupe.tsx@Line 41: ', data)
 
   return (
     <Modal title="放大镜-表格" open={true} onCancel={onCancel} onOk={onOk}>
@@ -97,15 +95,18 @@ const App: React.FC = (props) => {
         defaultValue={undefined}
         treeCheckable={multiple}
         treeCheckStrictly={true}
-        treeData={genTileTreeData(2, 4, 'Overflow-', null, true)}
         loupeRender={SelectLoupeModal}
         // ====
         pickEvent="mount,search,load"
         request={(type, prevParams, currentParams) => {
-          if (type === 'mount' || type === 'search') {
+          if (type === 'mount') {
             return generatePromise({
-              params: { pageNo: 1, pageSize: 20, keywords: currentParams?.value },
-              content: genTileTreeData(1, 4, currentParams?.value, null, false),
+              content: genTileTreeData(1, 4, 'Mount', null, false),
+            })
+          }
+          if (type === 'search') {
+            return generatePromise({
+              content: genTileTreeData(2, 4, currentParams?.value, null, true),
             })
           }
 
@@ -119,9 +120,7 @@ const App: React.FC = (props) => {
             })
           }
 
-          const { pageNo, pageSize } = prevParams
           return generatePromise({
-            params: { ...prevParams, pageNo: pageNo + 1, pageSize },
             content: genTileTreeData(1, 3, currentParams.id, currentParams.id, false).map((item, index) => (index <= 1 ? { ...item, isLeaf: true } : item)),
           })
         }}

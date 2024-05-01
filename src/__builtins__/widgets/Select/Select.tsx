@@ -124,6 +124,7 @@ export const Select: FC<ISelectProps> = (props) => {
    * @description 在 onChangeHandler 中已经处理，此处再次处理是为了外部传入的 props.defaultValue 或 props.value 的格式
    */
   const calcValue = useMemo(() => {
+    if (!controllableValue) { return controllableValue }
     if (!labelInValue) { return controllableValue }
 
     const valueProp = fieldNames?.value ?? 'value'
@@ -141,6 +142,11 @@ export const Select: FC<ISelectProps> = (props) => {
    * @description 由于 tags 模式仅有 value，没有 label，需特殊处理
    */
   const onChangeHandler = useCallback((valueParam: any, optionParam: any) => {
+    if (!valueParam) {
+      onChange(valueParam)
+      return
+    }
+
     if (!labelInValue) {
       onChange(valueParam)
       return
@@ -152,7 +158,7 @@ export const Select: FC<ISelectProps> = (props) => {
     const aValue = toArr(valueParam).map((item) => {
       const value = item.value
       const label = item.label ?? value
-      const option = aOption.find(o => o[valueProp] === value)
+      const option = aOption.find(o => o?.[valueProp] === value)
       return { ...option, value, [valueProp]: value, label, [labelProp]: label }
     })
     onChange(isArray(valueParam) ? aValue : aValue[0])

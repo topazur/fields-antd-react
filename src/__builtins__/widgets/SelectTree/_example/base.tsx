@@ -16,6 +16,7 @@ export function genTreeData(level: number, count: number, prefix: string = '', h
     const item: any = {
       value: prefix + i,
       label: prefix + i,
+      extraProp: prefix + i,
       children: genTreeData(level - 1, count, prefix + i, hasIsLeaf),
       isLeaf: false,
     }

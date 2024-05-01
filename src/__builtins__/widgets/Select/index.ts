@@ -1,2 +1,2 @@
 export { Select } from './Select'
-export type { ISelectEvent, ISelectResponse, ILoupeRenderProps, ISelectProps } from './types'
+export type { ISelectEvent, ISelectResponse, ISelectLoupeRenderProps, ISelectProps } from './types'

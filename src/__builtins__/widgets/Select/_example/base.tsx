@@ -13,6 +13,7 @@ export function generateOptions(pageNo: number, pageSize: number = 10, random?: 
     return {
       value: `value${random ? `_${random}` : ''}_${calcIdx}`,
       label: `label${random ? `_${random}` : ''}_${calcIdx}`,
+      extraProp: `label${random ? `_${random}` : ''}_${calcIdx}`,
     }
   })
 }

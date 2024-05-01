@@ -49,7 +49,7 @@ export interface ISelectCustomRequestProps<T = any> {
 
 // ===========================================================
 
-export interface ILoupeRenderProps {
+export interface ISelectLoupeRenderProps {
   // 勾选
   isMultiple?: boolean
   labelInValue?: boolean
@@ -73,7 +73,7 @@ export interface ISelectCustomLoupeProps {
   /**
    * 自定义传入放大镜的组件
    */
-  loupeRender?: FunctionComponent<ILoupeRenderProps> | ComponentClass<ILoupeRenderProps>
+  loupeRender?: FunctionComponent<ISelectLoupeRenderProps> | ComponentClass<ISelectLoupeRenderProps>
 }
 
 // ===========================================================
