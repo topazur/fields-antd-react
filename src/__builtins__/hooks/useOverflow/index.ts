@@ -1,5 +1,5 @@
-import { useLatest } from 'ahooks'
 import { useEffect, useRef, useState } from 'react'
+import { useLatest } from 'ahooks'
 
 /**
  * @title 判断内部元素是否超出容器元素的宽度
@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 export function useOverflow<
   Container extends HTMLElement,
   Content extends HTMLElement,
->(deps: any) {
+>(...deps: any) {
   const [overflow, setOverflow] = useState(false)
 
   const containerRef = useRef<Container>(null)

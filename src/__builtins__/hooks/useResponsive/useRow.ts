@@ -2,7 +2,7 @@ import { createContext, useContext, useMemo } from 'react'
 import cls from 'classnames'
 
 import { parseDomFlex } from '../../utils'
-import { useConfigContext, usePrefixCls } from '../usePrefixCls'
+import { useConfigContext } from '../usePrefixCls'
 
 import type { CSSProperties } from 'react'
 import type { LiteralUnion } from '../../types'

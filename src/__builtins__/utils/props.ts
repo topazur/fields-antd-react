@@ -3,8 +3,8 @@ import type { HTMLAttributes } from 'react'
 /**
  * @title 挑选出 data- 开头的属性
  */
-export function pickDataAttrs(props: any = {}) {
-  const results: HTMLAttributes<any> = {}
+export function pickDataAttrs(props: any = {}, defaultAttrs: HTMLAttributes<any> = {}) {
+  const results: HTMLAttributes<any> = defaultAttrs
 
   for (const key in props) {
     if (key.includes('data-')) {

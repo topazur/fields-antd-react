@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
-import { useMemoizedFn } from 'ahooks'
+
+import { useMemoizedFn } from '../../hooks'
 
 import type { ISelectTreeEvent, ISelectTreeProps, ISelectTreeResponse } from './types'
 
