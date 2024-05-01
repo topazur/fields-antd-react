@@ -32,7 +32,7 @@ describe('datetime.ts', () => {
     expect(_dayjs('2008-08-08 20:08:08').format(DEFAULT_FORMATS_DATETIME.year)).toEqual('2008')
     expect(_dayjs('2008-08-08 20:08:08').format(DEFAULT_FORMATS_DATETIME.quarter)).toEqual('2008-Q3')
     expect(_dayjs('2008-08-08 20:08:08').format(DEFAULT_FORMATS_DATETIME.month)).toEqual('2008-08')
-    expect(_dayjs('2008-08-08 20:08:08').format(DEFAULT_FORMATS_DATETIME.week)).toEqual('2008-w32')
+    expect(_dayjs('2008-08-08 20:08:08').format(DEFAULT_FORMATS_DATETIME.week)).toEqual('2008-32nd')
   })
 
   it('toISOString', () => {

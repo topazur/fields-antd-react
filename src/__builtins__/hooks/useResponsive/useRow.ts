@@ -57,10 +57,9 @@ export interface IUseRowParams {
  * @param props 用到了 prefixCls、className、style 等属性
  * @param params 用到了响应式相关属性
  */
-export function useRow(props: any, params: IUseRowParams) {
+export function useRow(props: any, params: IUseRowParams, rowPrefixCls: string) {
   const { justify = 'start', items = 'top', columnGap = 0, rowGap = 0, wrap = true } = params
 
-  const rowPrefixCls = usePrefixCls('row', props)
   const { direction } = useConfigContext()
 
   return useMemo(() => {
@@ -119,10 +118,9 @@ export interface IUseColParams {
  * @param props 用到了 prefixCls、className、style 等属性
  * @param params 用到了响应式相关属性
  */
-export function useCol(props: any, params: IUseColParams) {
+export function useCol(props: any, params: IUseColParams, colPrefixCls: string) {
   const { flex, span, order = 0, offset = 0, pull = 0, push = 0 } = params
 
-  const colPrefixCls = usePrefixCls('col', props)
   const { direction } = useConfigContext()
 
   // 获取 Row 传递的变量

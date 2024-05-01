@@ -1,4 +1,4 @@
-import { useCol, useResponsiveProps, useRowContext } from '../../hooks'
+import { useCol, usePrefixCls, useResponsiveProps, useRowContext } from '../../hooks'
 
 import type { FC, HTMLAttributes, PropsWithChildren } from 'react'
 import type { ColSpanType, FlexType } from '../../hooks'
@@ -40,6 +40,8 @@ export interface ColProps extends HTMLAttributes<HTMLDivElement> {
  * @description 对于 flex 和 order 属性直接通过 style 设置样式
  */
 export const Col: FC<PropsWithChildren<ColProps>> = ({ children, ...props }) => {
+  const colPrefixCls = usePrefixCls('col', { prefixCls: 'fields' }, true)
+
   // 获取 Row 传递的变量
   const { breakpointIndex } = useRowContext()
   // 监听容器尺寸断点
@@ -49,7 +51,7 @@ export const Col: FC<PropsWithChildren<ColProps>> = ({ children, ...props }) => 
     'flex|span|order|offset|pull|push',
   )
   // 根据响应式结果，计算出当前断点下的类名和样式
-  const { className, style } = useCol(props, breakpointProps)
+  const { className, style } = useCol(props, breakpointProps, colPrefixCls)
 
   return (
     <div

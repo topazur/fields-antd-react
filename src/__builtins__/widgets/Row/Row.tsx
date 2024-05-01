@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react'
 
-import { RowContext, useResponsive, useResponsiveProps, useRow, useSize } from '../../hooks'
+import { RowContext, usePrefixCls, useResponsive, useResponsiveProps, useRow, useSize } from '../../hooks'
 
 import type { FC, HTMLAttributes, PropsWithChildren } from 'react'
 import type { Gutter, IRowItems, IRowJustify, RowContextState } from '../../hooks'
@@ -45,6 +45,8 @@ export interface RowProps extends HTMLAttributes<HTMLDivElement> {
 export const Row: FC<PropsWithChildren<RowProps>> = (props) => {
   const { wrap, breakpoints, children, ...restProps } = props
 
+  const rowPrefixCls = usePrefixCls('row', { prefixCls: 'fields' }, true)
+
   // 监听容器尺寸断点
   const breakpointRef = useRef(null)
   const breakpointSize = useSize(breakpointRef)
@@ -62,7 +64,7 @@ export const Row: FC<PropsWithChildren<RowProps>> = (props) => {
   )
 
   // 根据响应式结果，计算出当前断点下的类名和样式
-  const { className, style } = useRow(props, breakpointProps)
+  const { className, style } = useRow(props, breakpointProps, rowPrefixCls)
 
   return (
     <RowContext.Provider value={rowContextValue}>
