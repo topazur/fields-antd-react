@@ -1,0 +1,57 @@
+---
+title: 公共组件 - Cascader级联选择器
+description: 级联选择框。
+sidebar:
+  order: 106
+---
+
+> 需要从一组相关联的数据集合进行选择，例如省市区，公司层级，事物分类等。<br />
+> 从一个较大的数据集合中进行选择时，用多级分类进行分隔，方便选择。<br />
+> 比起 Select 组件，可以在同一个浮层中完成选择，有较好的体验。
+
+## 使用
+
+```tsx
+import { Cascader } from '@odinlin/fields-antd-react/__builtins__/widgets';
+```
+
+### 备注
+
+> 代码实现基于 [antd.Cascader](https://ant.design/components/cascader-cn)、[rc-cascader](https://github.com/react-component/cascader)
+
+> - fix: 解决 rc-select 中 measureRef 是用于测量输入文字长度 scrollWidth，过长时横向出现滚动条问题。
+> - feat: 通过 css 覆盖实现 readOnly 效果。
+> - feat: 包含组件库所有功能，仅在其基础上扩展远程搜索功能，都是通过新增 props 实现，未覆盖原有属性。
+> - feat: 实现 loupeRender 放大镜模式。
+> - perf: 对其他组件库是配置时，若其未实现多选响应式，可通过 Overflow 实现。
+
+## 代码演示
+
+### 扩展远程搜索功能
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/SelectCascader/_example/base.tsx"
+  client:only="react"
+/>
+
+### 多选模式下 Overflow 超出折叠或隐藏
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/SelectCascader/_example/overflow.tsx"
+  client:only="react"
+/>
+
+### 放大镜模式 (不建议开启，value 的数据结构太复杂)
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/SelectCascader/_example/loupe.tsx"
+  client:only="react"
+/>
+
+

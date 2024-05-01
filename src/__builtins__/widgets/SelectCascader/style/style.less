@@ -1,0 +1,134 @@
+@prefixCls: ~"fields";
+
+// BugFix
+.@{prefixCls}-cascader {
+  width: 100%;
+
+  // FIXED: 容器元素设置不换行
+  &.ant-select-multiple .ant-select-selection-overflow {
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+
+  // FIXED: rc-select 中 measureRef 是用于测量输入文字长度 scrollWidth，但是过长会出现滚动条，因此限制 overflow 属性。
+  // 最终 measureRef 的宽度会赋值给 input 元素，等同于限制了 input 的最大宽度，防止 input 宽度过宽
+  &.ant-select-multiple.ant-select-show-search .ant-select-selection-search-mirror {
+    width: max-content;
+    max-width: var(--fields-select-selection-search-max-width, 80px);
+    overflow: hidden;
+    display: block;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+}
+
+// 放大镜样式 (目的是增大点击率，减少误触)
+.@{prefixCls}-cascader {
+  .@{prefixCls}-cascader-loupe-icon {
+    // cursor: cell;
+    // cursor: zoom-in;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.88);
+      transform: scale(1.35);
+    }
+  }
+}
+
+// AntdSelect 没有实现 readOnly 样式，我们这里通过微调 disabled 的样式实现只读样式。
+// 好处是在 disabled 的基础上改可以复用很多逻辑，而如果直接使用 pointer-events: none; 不会触发 Popover 的 hover 事件。
+.@{prefixCls}-cascader.@{prefixCls}-cascader-readonly {
+  &.ant-select-disabled:not(.ant-select-customize-input) .ant-select-selector {
+    color: rgba(0, 0, 0, 0.88);
+    cursor: default;
+
+    input {
+      cursor: default;
+    }
+  }
+
+  &.ant-select-disabled.ant-select-multiple:not(.ant-select-customize-input) .ant-select-selection-overflow .ant-select-selection-item {
+    color: rgba(0, 0, 0, 0.88);
+    cursor: default;
+  }
+
+  // ===================================
+
+  &.ant-select-disabled.ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: #ffffff;
+  }
+
+  &.ant-select-disabled.ant-select-outlined:not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+    border-color: #4096ff;
+  }
+
+  // ===================================
+
+  &.ant-select-disabled.ant-select-filled:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-color: transparent;
+  }
+
+  &.ant-select-disabled.ant-select-filled:not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  // ===================================
+
+  &.ant-select-disabled.ant-select-borderless:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: #ffffff;
+    border-color: transparent;
+  }
+}
+
+// 限制 Popover 内的 tag 样式与输入框中的保持一致。
+.@{prefixCls}-cascader-dropdown {
+  .@{prefixCls}-cascader-dropdown-content {
+    padding: 12px;
+
+    .@{prefixCls}-cascader-dropdown-content-tag {
+      background: rgba(0, 0, 0, 0.06);
+      height: 24px;
+      line-height: 22px;
+      font-size: 14px;
+    }
+  }
+
+
+  // ===================== size =====================
+
+  .@{prefixCls}-cascader-dropdown-content[data-size=small] {
+    .@{prefixCls}-cascader-dropdown-content-tag {
+      height: 16px;
+      line-height: 14px;
+      font-size: 14px;
+    }
+  }
+
+  .@{prefixCls}-cascader-dropdown-content[data-size=large] {
+    .@{prefixCls}-cascader-dropdown-content-tag {
+      height: 32px;
+      line-height: 30px;
+      font-size: 16px;
+    }
+  }
+
+  // ===================== disabled =====================
+
+  .@{prefixCls}-cascader-dropdown-content[data-disabled=true] {
+    .@{prefixCls}-cascader-dropdown-content-tag {
+      cursor: not-allowed;
+    }
+  }
+
+  // ===================== variant =====================
+
+  .@{prefixCls}-cascader-dropdown-content[data-variant=filled] {
+    background: rgba(0, 0, 0, 0.04);
+
+    .@{prefixCls}-cascader-dropdown-content-tag {
+      background: #ffffff;
+    }
+  }
+}
