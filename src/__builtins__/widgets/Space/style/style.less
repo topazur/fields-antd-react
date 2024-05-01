@@ -1,0 +1,101 @@
+@prefixCls: ~"ant";
+
+// ========= 基础样式 =========
+.@{prefixCls}-space {
+  display: flex;
+  flex-flow: row nowrap;
+  min-width: 0;
+  box-sizing: border-box;
+
+  &::before,
+  &::after {
+    display: flex;
+  }
+
+  /** css.flex-direction */
+  &-vertical {
+    flex-direction: column;
+  }
+
+  /** css.align-items */
+  &-items-start {
+    align-items: flex-start;
+  }
+
+  &-items-center {
+    align-items: center;
+  }
+
+  &-items-end {
+    align-items: flex-end;
+  }
+
+  &-items-baseline {
+    align-items: baseline;
+  }
+
+  &-items-stretch {
+    align-items: stretch;
+  }
+}
+
+// ========= 紧凑布局 =========
+.@{prefixCls}-space-compact {
+  &.@{prefixCls}-space-horizontal {
+
+    // border-radius
+    .@{prefixCls}-space-item.@{prefixCls}-space-first-item> :first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .@{prefixCls}-space-item:not(.@{prefixCls}-space-first-item):not(.@{prefixCls}-space-last-item)> :first-child {
+      border-radius: 0;
+    }
+
+    .@{prefixCls}-space-item.@{prefixCls}-space-last-item> :first-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    // border 重叠处理
+    .@{prefixCls}-space-item:not(.@{prefixCls}-space-last-item) {
+      margin-right: calc(var(--fields-space-line, 1px) * -1);
+    }
+  }
+
+  &.@{prefixCls}-space-vertical {
+    display: inline-flex;
+    // 垂直布局切换为 inline-flex，并且子元素默认撑满
+    .@{prefixCls}-space-item> :first-child {
+      width: 100%;
+    }
+
+    // border-radius
+    .@{prefixCls}-space-item.@{prefixCls}-space-first-item> :first-child {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .@{prefixCls}-space-item:not(.@{prefixCls}-space-first-item):not(.@{prefixCls}-space-last-item)> :first-child {
+      border-radius: 0;
+    }
+
+    .@{prefixCls}-space-item.@{prefixCls}-space-last-item> :first-child {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    // border 重叠处理
+    .@{prefixCls}-space-item:not(.@{prefixCls}-space-last-item) {
+      margin-bottom: calc(var(--fields-space-line, 1px) * -1);
+    }
+  }
+
+  // border 重叠处理
+  .@{prefixCls}-space-item:hover,
+  .@{prefixCls}-space-item:focus,
+  .@{prefixCls}-space-item:active {
+    z-index: 2;
+  }
+}
