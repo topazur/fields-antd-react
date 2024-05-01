@@ -4,11 +4,11 @@ import type { BaseOptionType, DefaultOptionType } from 'antd/lib/select'
 
 /**
  * @title Event Name
- * @enum {mount:搜词加载, popup:下拉框, focus:聚焦, search:模糊搜索, scroll:滚动触底, load:树形/级联选择器异步加载, loupe:放大镜}
- * @description // NOTICE: 是否首次加载，'mount' | 'popup' | 'focus' 是可选的 event 时机
+ * @enum {mount:首次加载, popup:下拉框, search:模糊搜索, scroll:滚动触底, loupe:放大镜}
+ * @description // NOTICE: 是否首次加载，'mount' | 'popup' 是可选的 event 时机
  * @description 其他 event 是对应特殊场景下的
  */
-export type ISelectEvent = 'mount' | 'popup' | 'focus' | 'search' | 'scroll' | 'load' | 'loupe'
+export type ISelectEvent = 'mount' | 'popup' | 'search' | 'scroll' | 'loupe'
 
 export interface ISelectResponse<T = any> {
   /**
@@ -79,7 +79,13 @@ export interface ISelectCustomLoupeProps {
 // ===========================================================
 
 export interface ISelectProps<ValueType = any, OptionType extends BaseOptionType | DefaultOptionType = DefaultOptionType>
-  extends Omit<AntdSelectProps<ValueType, OptionType>, 'suffixIcon' | 'onSearch' | 'onPopupScroll' | 'onFocus'>,
+  extends Omit<
+    AntdSelectProps<ValueType, OptionType>,
+    // @deprecated 内部已弃用属性
+    'dropdownClassName' | 'dropdownMatchSelectWidth' | 'bordered' | 'showArrow' |
+    // @override 已重写属性
+    'suffixIcon' | 'onSearch' | 'onPopupScroll'
+>,
   ISelectCustomRequestProps<OptionType>,
   ISelectCustomLoupeProps {
   /**

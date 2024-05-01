@@ -3,7 +3,7 @@ import { useMemoizedFn } from 'ahooks'
 
 import type { ISelectEvent, ISelectProps, ISelectResponse } from './types'
 
-const selectEvent: ISelectEvent[] = ['mount', 'popup', 'focus', 'search', 'scroll', 'load', 'loupe']
+const selectEvent: ISelectEvent[] = ['mount', 'popup', 'search', 'scroll', 'loupe']
 
 function createNoMoreOption(label: any): any {
   return {
@@ -21,6 +21,7 @@ function createNoMoreOption(label: any): any {
  */
 export function useSelectRequest(props: ISelectProps) {
   const { request, pickEvent, omitEvent, locale } = props
+
   /** 请求状态 */
   const [requestStatus, setRequestStatus] = useState<ISelectEvent | false>(false)
 

@@ -425,20 +425,6 @@ export const Select: FC<ISelectProps> = (props) => {
       })
   }, [hasRequestProp, allowableEvents.popup, onRequestHandler, onDropdownVisibleChange])
 
-  /**
-   * @title 获得焦点时回调
-   * @kind 请求 <无参数；响应直接覆盖>
-   */
-  const onFocusSearch = useCallback(() => {
-    // EVENTS: 该事件被禁止
-    if (!allowableEvents.focus) { return }
-
-    onRequestHandler('focus')
-      .then((content) => {
-        content && setDataSource(content)
-      })
-  }, [allowableEvents.focus, onRequestHandler])
-
   useEffect(() => {
     if (!hasRequestProp) {
       return
@@ -493,7 +479,6 @@ export const Select: FC<ISelectProps> = (props) => {
         // ======= request =======
         onSearch={onDebounceSearch}
         onPopupScroll={onScrollSearch}
-        onFocus={onFocusSearch}
       />
 
       {/* 放大镜 dom 渲染 */}

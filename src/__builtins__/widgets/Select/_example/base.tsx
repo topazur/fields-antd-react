@@ -49,24 +49,21 @@ const App: React.FC = (props) => {
       <Divider orientation="left">组件扩展: popup 事件</Divider>
       <Select
         pickEvent="popup"
-        request={(type, prevParams, currentParams) => generatePromise({ content: currentParams?.open ? generateOptions(1) : null })}
-      />
-
-      <Divider orientation="left">组件扩展: focus 事件</Divider>
-      <Select
-        pickEvent="focus"
-        request={(type, prevParams, currentParams) => generatePromise({ content: generateOptions(1) })}
+        request={(type, prevParams, currentParams) => generatePromise({ content: currentParams?.open ? generateOptions(1) : undefined })}
       />
 
       <Divider orientation="left">组件扩展: search 事件</Divider>
       <Select
         pickEvent="search"
-        request={(type, prevParams, currentParams) => generatePromise({ content: generateOptions(1, 10, random(1, 10)) })}
+        request={(type, prevParams, currentParams) => {
+          return generatePromise({ content: generateOptions(1, 10, currentParams.value) })
+        }}
       />
 
       <Divider orientation="left">组件扩展: scroll 事件</Divider>
       <Select
         // open={true}
+        // virtual={true}
         locale={{ search: '搜索中...', loadMore: '加载更多...', noMore: '没有更多了' }}
         pickEvent="mount,search,scroll"
         request={(type, prevParams, currentParams) => {
