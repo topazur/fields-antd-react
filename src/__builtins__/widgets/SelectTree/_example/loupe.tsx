@@ -89,12 +89,14 @@ const App: React.FC = (props) => {
 
       <Divider orientation="left">1. Modal + Table</Divider>
       <span style={{ fontSize: '14px', color: '#aaa' }}>当 mode 允许为 search 和 load 存在时，触发 search 后，不能再触发 load 事件(解决方案是 search 的结果是筛选后的完整的树)</span>
+      <span style={{ fontSize: '14px', color: '#aaa' }}>[antd: TreeSelect] `multiple` will always be `true` when `treeCheckable` is true</span>
+      <span style={{ fontSize: '14px', color: '#aaa' }}>设置 treeCheckStrictly=true 后，可防止在先选中父级再触发父级的展开事件时报错</span>
       <SelectTree
         multiple={multiple}
         labelInValue={labelInValue}
         defaultValue={undefined}
-        treeCheckable={true}
-        treeCheckStrictly={false}
+        treeCheckable={multiple}
+        treeCheckStrictly={true}
         treeData={genTileTreeData(2, 4, 'Overflow-', null, true)}
         loupeRender={SelectLoupeModal}
         // ====
