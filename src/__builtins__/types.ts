@@ -31,6 +31,7 @@ export type AddRecordPrefix<T, Prefix extends string> = {
  */
 export type SizeType = 'small' | 'default' | 'large'
 export type StatusType = 'default' | 'success' | 'warning' | 'error'
+export type VariantType = 'outlined' | 'borderless' | 'filled'
 
 // 日期类组件的六种形式
 export type PickerMode = 'time' | 'date' | 'year' | 'quarter' | 'month' | 'week'

@@ -1,18 +1,13 @@
 import { useCallback, useMemo } from 'react'
 import { Checkbox as AntdCheckbox, Switch as AntdSwitch } from 'antd'
-import { useControllableValue } from 'ahooks'
+
+import { useControllableValue } from '../../hooks'
 
 import type { FC } from 'react'
 import type { CheckboxProps as AntdCheckboxProps, SwitchProps as AntdSwitchProps } from 'antd'
 import type { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
-// NOTICE: 若仍不满足可考虑重写 activeValue 和 inactiveValue 传递函数，返回值用作对比。此处暂未实现
-export type SwitchProps = (
-  Omit<AntdCheckboxProps, 'value' | 'onChange'> |
-  Omit<AntdSwitchProps, 'checkedChildren' | 'unCheckedChildren' | 'value' | 'onChange'>
-) & {
-  // ADD: 显示组件类型
-  type?: 'checkbox' | 'switch'
+export interface SwitchCommonProps {
   // ADD: 选中时的的值 - 支持数据类型，通过来全等来判断
   activeValue?: boolean | number | string
   // ADD: 非选中时的值 - 支持数据类型，通过来全等来判断
@@ -21,10 +16,15 @@ export type SwitchProps = (
   checkedChildren?: React.ReactNode
   // ADD: 非选中时的 label 内容
   unCheckedChildren?: React.ReactNode
-  value?: boolean | number | string
   // REAPLACE: 统一 onChange 的类型
+  value?: boolean | number | string
   onChange?: (checked?: boolean | number | string) => void
 }
+
+// 联合类型（Union Type）来区分不同 type 下的 props 类型
+export type SwitchProps =
+  | { type: 'checkbox' } & Omit<AntdCheckboxProps, 'value' | 'onChange'> & SwitchCommonProps
+  | { type?: 'switch' } & Omit<AntdSwitchProps, 'checkedChildren' | 'unCheckedChildren' | 'value' | 'onChange'> & SwitchCommonProps
 
 /**
  * @title Switch 开关 / Checkbox 多选框
@@ -58,11 +58,11 @@ export const Switch: FC<SwitchProps> = (props) => {
   // 对两种组件的 onChange 事件做兼容处理
   const onComposeChange = useCallback((value: boolean | CheckboxChangeEvent) => {
     if (typeof value === 'boolean') {
-      onChange?.(value ? activeValue : inactiveValue)
+      onChange(value ? activeValue : inactiveValue)
       return
     }
 
-    onChange?.(value.target.checked ? activeValue : inactiveValue)
+    onChange(value.target.checked ? activeValue : inactiveValue)
   }, [activeValue, inactiveValue, onChange])
 
   if (type === 'checkbox') {
