@@ -1,0 +1,47 @@
+@prefixCls: ~"fields";
+
+.@{prefixCls}-grid-transfer {
+  .@{prefixCls}-grid-transfer-item {
+
+    // 行样式
+    .ag-row-highlight-success {
+      &.ag-row-highlight-above::after {
+        bottom: 0;
+        z-index: 100;
+        --ag-range-selection-border-color: var(--fields-highlight-success, rgba(82, 196, 26));
+      }
+
+      &.ag-row-highlight-below::after {
+        bottom: -1px;
+        z-index: 100;
+        --ag-range-selection-border-color: var(--fields-highlight-success, rgba(82, 196, 26));
+      }
+    }
+
+    // 行样式
+    .ag-row.ag-row-highlight-error {
+      &.ag-row-highlight-above::after {
+        bottom: 0;
+        z-index: 100;
+        --ag-range-selection-border-color: var(--fields-highlight-success, rgba(255, 77, 79));
+      }
+
+      &.ag-row-highlight-below::after {
+        bottom: -1px;
+        z-index: 100;
+        --ag-range-selection-border-color: var(--fields-highlight-success, rgba(255, 77, 79));
+      }
+    }
+
+    // 修复 checkbox 不可用的样式
+    .ag-checkbox-input-wrapper.ag-disabled {
+      input[type="checkbox"] {
+        cursor: not-allowed;
+      }
+
+      &::before {
+        background: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}

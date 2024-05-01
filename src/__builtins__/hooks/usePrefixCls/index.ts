@@ -7,10 +7,11 @@ export const defaultPrefixCls = 'ant'
 export function usePrefixCls(
   tag?: string,
   props?: { prefixCls?: string },
+  customable?: boolean,
 ) {
   const { getPrefixCls } = useConfigContext()
 
-  if (getPrefixCls) {
+  if (!customable && getPrefixCls) {
     return getPrefixCls(tag, props?.prefixCls)
   }
 

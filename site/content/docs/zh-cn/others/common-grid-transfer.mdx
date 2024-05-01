@@ -1,0 +1,48 @@
+---
+title: 公共组件 - GridTransfer穿梭框
+description: 支持拖拽的双栏穿梭选择框。
+sidebar:
+  order: 110
+---
+
+> 支持拖拽的双栏穿梭选择框 (基于 AgGrid 跨表格拖拽实现)。
+
+## 使用
+
+```tsx
+import { GridTransfer } from '@odinlin/fields-antd-react/__builtins__/widgets';
+```
+
+### 备注
+
+> 代码实现基于 [AgGrid.RowDragging 行拖动](https://www.ag-grid.com/react-data-grid/row-dragging)
+> - 左边一栏为 source，右边一栏为 target。但是 API 的设计是以 left 和 right 前缀区分，更加通俗易懂。
+
+## 代码演示
+
+### AgGrid 托管模式
+
+> 无需关心拖拽逻辑，但是定制化低
+
+<code 
+  className="not-content"
+  style={{ width: '100%', height: '500px', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/GridTransfer/_example/managed.tsx"
+  client:only="react"
+/>
+
+### 自定义分组
+
+> 仅允许同组内拖拽，定制化高
+
+优化点(右侧是否可以构造成树形结构模式？)：
+- 拖动到空白处无标线显示
+- 右侧不支持整组排序
+- 左侧排序未保持与出事数据源一致，而是简单的插入到最后一行
+
+<code 
+  className="not-content"
+  style={{ width: '100%', height: '500px', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/GridTransfer/_example/manual.tsx"
+  client:only="react"
+/>

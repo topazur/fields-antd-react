@@ -18,6 +18,13 @@ export type LiteralUnion<T extends string> = T | NonNullable<string>
 export type AnyObject = Record<PropertyKey, any>
 
 /**
+ * @title 为 Record<string, any> 的每一个 key 值添加前缀，并且原 key 首字母大写，以满足驼峰要求。
+ */
+export type AddRecordPrefix<T, Prefix extends string> = {
+  [K in keyof T as K extends string ? `${Prefix}${Capitalize<K>}` : never]: T[K];
+}
+
+/**
  * @title 抹平 formilyjs 和 antd 的类型差异
  * @notice 在 antd 中 middle 表示中等
  * @description 在传入最终控件内部之前修复该差异，对应用层可以更加宽容
