@@ -4,7 +4,7 @@ import cls from 'classnames'
 import { debounce, flat, isFunction } from 'radash'
 
 import { useControllableValue, usePrefixCls } from '../../hooks'
-import { parseSimpleTreeData, toArr } from '../../utils'
+import { parseCompletedTreeData, toArr } from '../../utils'
 import { DownOutlinedIcon, ExpandOutlinedIcon, LoadingIcon, SearchOutlinedIcon, UpOutlinedIcon } from '../../widgets'
 import { useCascaderRequest } from './hooks'
 
@@ -84,7 +84,7 @@ export const Cascader: FC<ICascaderProps> = (props) => {
     }
 
     const { id, pId, rootPId } = Object.assign({ id: 'id', pId: 'pId', rootPId: null }, treeDataSimpleMode) as any
-    return parseSimpleTreeData(request ? dataSource : options, id, pId, rootPId)
+    return parseCompletedTreeData(request ? dataSource : options, rootPId, { primaryKey: id, parentKey: pId })
   }, [request, treeDataSimpleMode, dataSource, options])
 
   /**

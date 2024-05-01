@@ -4,7 +4,7 @@ import cls from 'classnames'
 import { debounce, isArray, isFunction } from 'radash'
 
 import { useControllableValue, usePrefixCls } from '../../hooks'
-import { findTreeNodeById, parseSimpleTreeData, toArr } from '../../utils'
+import { findTreeNodePaths, parseCompletedTreeData, toArr } from '../../utils'
 import { DownOutlinedIcon, ExpandOutlinedIcon, LoadingIcon, SearchOutlinedIcon, UpOutlinedIcon } from '../../widgets'
 import { useSelectTreeRequest } from './hooks'
 
@@ -85,7 +85,7 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
     }
 
     const { id, pId, rootPId } = Object.assign({ id: 'id', pId: 'pId', rootPId: null }, treeDataSimpleMode) as any
-    return parseSimpleTreeData(request ? dataSource : treeData, id, pId, rootPId)
+    return parseCompletedTreeData(request ? dataSource : treeData, rootPId, { primaryKey: id, parentKey: pId })
   }, [request, treeDataSimpleMode, dataSource, treeData])
 
   /**
@@ -175,7 +175,8 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
       }
       else {
         // 数据源: 树形结构的数据源
-        const { children: _, ...restOption } = findTreeNodeById(aOption, valueProp, value) || {}
+        const nodePaths = findTreeNodePaths(aOption, value, { primaryKey: valueProp })
+        const { children: _, ...restOption } = nodePaths[nodePaths.length - 1] || {}
         option = restOption
       }
       return { ...option, value, [valueProp]: value, label, [labelProp]: label }

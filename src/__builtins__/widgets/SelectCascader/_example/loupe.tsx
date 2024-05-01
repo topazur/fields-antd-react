@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Select as AntdSelect, Divider, Flex, Modal, Table } from 'antd'
 import { useRequest } from 'ahooks'
 
-import { parseSimpleTreeData, toArr } from '../../../utils'
+import { parseCompletedTreeData, toArr } from '../../../utils'
 import { Cascader } from '../'
 import { genTileTreeData, generatePromise } from './base'
 
@@ -138,7 +138,7 @@ const App: React.FC = (props) => {
             const { pageNo, pageSize } = currentParams || {}
             return generatePromise({
               params: { pageNo, pageSize },
-              content: parseSimpleTreeData(genTileTreeData(2, 4, currentParams?.value, null, true)),
+              content: parseCompletedTreeData(genTileTreeData(2, 4, currentParams?.value, null, true)),
               loupe: { total: 100 },
             })
           }
