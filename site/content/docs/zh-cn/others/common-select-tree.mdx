@@ -1,0 +1,57 @@
+---
+title: 公共组件 - SelectTree选择器
+description: 类似 Select 的选择控件，可选择的数据结构是一个树形结构时，可以使用 SelectTree 树形选择器。
+sidebar:
+  order: 107
+---
+
+> 类似 Select 的选择控件，可选择的数据结构是一个树形结构时，可以使用 SelectTree 树形选择器。
+
+## 使用
+
+```tsx
+import { SelectTree } from '@odinlin/fields-antd-react/__builtins__/widgets';
+
+/** 本地实现拼音搜索示例，远程需要服务端做支持 */
+// import { match } from "pinyin-pro"
+// 伪代码: props.filterTreeNode = (inputValue, treeNode) => !!match(treeNode.label as string, inputValue)
+```
+
+### 备注
+
+> 代码实现基于 [antd.TreeSelect](https://ant.design/components/tree-select-cn)、[rc-tree-select](https://github.com/react-component/tree-select)
+
+> - fix: 解决 rc-select 中 measureRef 是用于测量输入文字长度 scrollWidth，过长时横向出现滚动条问题。
+> - feat: 通过 css 覆盖实现 readOnly 效果。
+> - feat: 包含组件库所有功能，仅在其基础上扩展远程搜索功能，都是通过新增 props 实现，未覆盖原有属性。
+> - feat: 实现 loupeRender 放大镜模式。
+> - perf: 对其他组件库是配置时，若其未实现多选响应式，可通过 Overflow 实现。
+
+## 代码演示
+
+### 扩展远程搜索功能
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/SelectTree/_example/base.tsx"
+  client:only="react"
+/>
+
+### 多选模式下 Overflow 超出折叠或隐藏
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/SelectTree/_example/overflow.tsx"
+  client:only="react"
+/>
+
+### 放大镜模式
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/SelectTree/_example/loupe.tsx"
+  client:only="react"
+/>
