@@ -32,6 +32,7 @@
   "explorer.fileNesting.patterns": {
     "package.json": ".gitignore, .npmignore*, pnpm-lock.yaml, eslint.config.js",
     "tsconfig.json": "tsconfig.*json",
+    "vitest.config.ts": "vitest.*",
     "astro.config.*": ""
   }
 }

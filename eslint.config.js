@@ -14,7 +14,7 @@ module.exports = antfu(
       'no-console': 'off',
       // curly braces in object
       'curly': ['error', 'multi-line', 'consistent'],
-      'max-statements-per-line': ['error', { max: 2 }],
+      'style/max-statements-per-line': ['error', { max: 2 }],
       // [import/order](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md)
       'import/order': ['error', {
         'groups': ['builtin', 'external', ['internal', 'parent', 'sibling', 'index'], 'unknown', 'object', 'type'],
@@ -22,6 +22,7 @@ module.exports = antfu(
         'pathGroupsExcludedImportTypes': [],
         'warnOnUnassignedImports': false,
       }],
+      'regexp/no-misleading-capturing-group': 'off',
       // React
       'react/prop-types': 'off',
       'react/no-unknown-property': 'off',
