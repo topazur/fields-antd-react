@@ -51,7 +51,7 @@ export const Space: FC<PropsWithChildren<SpaceProps>> = (props) => {
     children,
   } = props
 
-  const spacePrefixCls = usePrefixCls('space', props)
+  const spacePrefixCls = usePrefixCls('space', { prefixCls: 'fields' }, true)
   const { direction: rtlDirection } = useConfigContext()
 
   // 计算类名
