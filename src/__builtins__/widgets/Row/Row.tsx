@@ -58,11 +58,7 @@ export const Row: FC<PropsWithChildren<RowProps>> = (props) => {
   const breakpointProps = useResponsiveProps(
     restProps,
     currentIndex,
-    'justify',
-    'items',
-    'columnGap',
-    'rowGap',
-    'wrap',
+    'justify|items|columnGap|rowGap|wrap',
   )
 
   // 根据响应式结果，计算出当前断点下的类名和样式

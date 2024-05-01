@@ -5,6 +5,7 @@ export { useControllableValue } from 'ahooks'
 // https://github.com/Alfred-Skyblue/vue-draggable-plus
 // useDraggable
 export * from './usePrefixCls'
+export * from './useOverflow'
 export * from './useResponsive'
 // https://ahooks.js.org/zh-CN/hooks/use-size
 export { useSize } from 'ahooks'

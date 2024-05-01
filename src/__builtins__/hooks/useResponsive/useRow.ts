@@ -1,11 +1,11 @@
 import { createContext, useContext, useMemo } from 'react'
 import cls from 'classnames'
-import { useConfigContext, usePrefixCls } from '../usePrefixCls'
-import { useResponsiveProps } from './useResponsiveProps'
 
-import type { CSSProperties, } from 'react'
+import { useConfigContext, usePrefixCls } from '../usePrefixCls'
+
+import type { CSSProperties } from 'react'
 import type { LiteralUnion } from '../../types'
-import type { IResponsiveEnum, } from './useResponsive'
+import type { IResponsiveEnum } from './useResponsive'
 
 export const RowJustify = [
   'start',
@@ -106,14 +106,24 @@ export type ColSpanType = number | string
 
 function parseFlex(flex: FlexType): string {
   if (typeof flex === 'number') {
-    return `${flex} ${flex} auto`;
+    return `${flex} ${flex} auto`
   }
 
+  // eslint-disable-next-line regexp/no-unused-capturing-group
   if (/^\d+(\.\d+)?(px|em|rem|%)$/.test(flex)) {
-    return `0 0 ${flex}`;
+    return `0 0 ${flex}`
   }
 
-  return flex;
+  return flex
+}
+
+export interface IUseColParams {
+  flex?: FlexType
+  span?: ColSpanType
+  order?: ColSpanType
+  offset?: ColSpanType
+  pull?: ColSpanType
+  push?: ColSpanType
 }
 
 /**
@@ -121,24 +131,14 @@ function parseFlex(flex: FlexType): string {
  * @param props 用到了 prefixCls、className、style 等属性
  * @param params 用到了响应式相关属性
  */
-export function useCol(props: any) {
+export function useCol(props: any, params: IUseColParams) {
+  const { flex, span, order = 0, offset = 0, pull = 0, push = 0 } = params
+
   const colPrefixCls = usePrefixCls('col', props)
   const { direction } = useConfigContext()
 
   // 获取 Row 传递的变量
-  const { wrap, breakpointIndex } = useRowContext()
-  // 监听容器尺寸断点
-  const breakpointProps = useResponsiveProps(
-    props,
-    breakpointIndex,
-    'flex',
-    'span',
-    'order',
-    'offset',
-    'pull',
-    'push',
-  )
-  const { flex, span, order = 0, offset = 0, pull = 0, push = 0 } = breakpointProps
+  const { wrap } = useRowContext()
 
   return useMemo(() => {
     // ================ 计算 类名
@@ -161,14 +161,14 @@ export function useCol(props: any) {
     calcStyle.paddingLeft = 'var(--col-padding-left, 0px)'
     calcStyle.paddingRight = 'var(--col-padding-right, 0px)'
 
-    if (order || order === 0) { 
+    if (order || order === 0) {
       calcStyle.order = order
     }
 
     if (flex) {
-      calcStyle.flex = parseFlex(flex);
+      calcStyle.flex = parseFlex(flex)
       if (wrap === false && !calcStyle.minWidth) {
-        calcStyle.minWidth = 0;
+        calcStyle.minWidth = 0
       }
     }
 

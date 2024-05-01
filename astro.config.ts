@@ -30,7 +30,7 @@ export default defineConfig({
       // },
       customCss: ['./src/style.less'],
       editLink: {
-        baseUrl: 'https://github.com/topazur/fields-antd-react/main/',
+        baseUrl: 'https://github.com/topazur/fields-antd-react/edit/main/',
       },
       social: {
         github: 'https://github.com/topazur/fields-antd-react',

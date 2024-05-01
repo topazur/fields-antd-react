@@ -3,7 +3,12 @@ const antfu = require('@antfu/eslint-config').default
 module.exports = antfu(
   {
     typescript: true,
-    react: true,
+    react: {
+      overrides: {
+        'react-hooks/exhaustive-deps': 'off',
+        'react-hooks/rules-of-hooks': 'off',
+      },
+    },
     ignores: [
       'tsconfig.*json',
     ],

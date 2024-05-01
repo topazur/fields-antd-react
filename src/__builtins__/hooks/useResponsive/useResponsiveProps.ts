@@ -14,22 +14,24 @@ function calcFactor<T = any>(value: T | T[], breakpointIndex: number = 0): T {
   return value[breakpointIndex]
 }
 
-
 /**
  * @title 计算出容器尺寸断点对应的属性的具体值
- * @examples breakpoints=[0, 576, 768]; props['labelAlign'] = ['left', 'right', 'left']; 
+ * @examples breakpoints=[0, 576, 768]; props['labelAlign'] = ['left', 'right', 'left'];
  *  那么当 idx 等于 1 时，labelAlign的具体是 right。
  */
 export function useResponsiveProps(
   props: any,
   breakpointIndex?: number,
-  ...breakpointkeys: string[]
+  breakpointkeys?: string,
 ) {
   return useMemo(() => {
-    const bProps = breakpointkeys.reduce<Record<string, any>>((prev, cur) => {
+    if (!breakpointkeys) { return props }
+
+    const aBreakpointkeys = breakpointkeys.split('|').filter(Boolean)
+    const bProps = aBreakpointkeys.reduce<Record<string, any>>((prev, cur) => {
       prev[cur] = calcFactor(props[cur], breakpointIndex)
       return prev
     }, {})
     return { ...props, ...bProps }
-  }, [props, breakpointIndex, JSON.stringify(breakpointkeys)])
+  }, [props, breakpointIndex, breakpointkeys])
 }
