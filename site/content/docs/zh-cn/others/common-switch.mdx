@@ -1,0 +1,34 @@
+---
+title: 公共组件 - Switch开关组件
+description: 使用开关切换两种状态之间。
+sidebar:
+  order: 102
+---
+
+> 使用开关切换两种状态之间。
+
+## 使用
+
+```tsx
+import { Switch } from '@odinlin/fields-antd-react/__builtins__/widgets';
+```
+
+### 备注
+
+> 代码实现基于 [antd.Switch](https://ant.design/components/switch-cn)、[antd.Checkbox](https://ant.design/components/checkbox-cn)
+> - 新增 type 属性: 使其在 Switch 和 Checkbox 组件之前切换 (当 type === 'checkbox' 渲染复选框)
+> - 新增 activeValue 属性: 支持数据类型(boolean | number | string)，通过来全等来判断
+> - 新增 inactiveValue 属性: 支持数据类型(boolean | number | string)，通过来全等来判断
+> - 新增 checkedChildren 属性: 选中时的 label 内容
+> - 新增 unCheckedChildren 属性: 非选中时的 label 内容
+
+## 代码演示
+
+### 开关示例
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/Switch/_example/base.tsx"
+  client:only="react"
+/>
