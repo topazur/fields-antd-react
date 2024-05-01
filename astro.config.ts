@@ -28,7 +28,7 @@ export default defineConfig({
       //   dark: '/site/assets/logo-dark.svg',
       //   replacesTitle: true,
       // },
-      customCss: [],
+      customCss: ['./src/style.less'],
       editLink: {
         baseUrl: 'https://github.com/topazur/fields-antd-react/main/',
       },
@@ -75,11 +75,19 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Components',
+          label: 'Input controls',
           translations: {
-            'zh-CN': '组件',
+            'zh-CN': '输入控件',
           },
           autogenerate: { directory: 'components' },
+          // badge: 'New',
+        },
+        {
+          label: 'Others',
+          translations: {
+            'zh-CN': '其他',
+          },
+          autogenerate: { directory: 'others' },
           // badge: 'New',
         },
       ],

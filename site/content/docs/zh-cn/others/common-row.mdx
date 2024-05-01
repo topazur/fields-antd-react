@@ -1,0 +1,101 @@
+---
+title: 公共组件 - 栅格
+description: 24 栅格系统
+---
+
+> 24 栅格系统
+
+## 使用
+
+```tsx
+import { Row, Col } from '@odinlin/fields-antd-react/__builtins__/widgets';
+```
+
+### 备注
+
+> 代码实现参考于 [antd](https://ant.design/components/grid) <br />
+> 不同的是响应式设计，该组件是先计算出当前断点下的具体值，再去改变类名或者样式。
+
+## 代码演示
+
+### 基础栅格
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/Row/_example/base.tsx"
+  client:only="react"
+/>
+
+### 区块间隔
+
+> 水平间距 columnGap；垂直间距 rowGap。若要支持响应式请传入数组，与 breakpoints 对应。
+
+<code 
+  className="not-content"
+  style={{ width: '100%' }} 
+  src="src/__builtins__/widgets/Row/_example/gutter.tsx"
+  client:only="react"
+/>
+
+### 左右偏移
+
+> 使用 offset 可以将列向右侧偏。例如，offset={4} 将元素向右侧偏移了 4 个列（column）的宽度。
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/Row/_example/offset.tsx"
+  client:only="react"
+/>
+
+### 排序
+
+<code 
+  className="not-content"
+  style={{ width: '100%' }} 
+  src="src/__builtins__/widgets/Row/_example/order.tsx"
+  client:only="react"
+/>
+
+### 水平排版
+
+> css.justify-content - 属性的类型定义和类名参考 Tailwind
+
+<code 
+  className="not-content"
+  style={{ width: '100%' }} 
+  src="src/__builtins__/widgets/Row/_example/justify.tsx"
+  client:only="react"
+/>
+
+### 垂直对齐
+
+> css.align-items - 属性的类型定义和类名参考 Tailwind
+
+<code 
+  className="not-content"
+  style={{ width: '100%' }} 
+  src="src/__builtins__/widgets/Row/_example/items.tsx"
+  client:only="react"
+/>
+
+### Flex 填充
+
+> css.flex - 通过 parseFlex 解析
+
+<code 
+  className="not-content"
+  style={{ width: '100%' }} 
+  src="src/__builtins__/widgets/Row/_example/flex.tsx"
+  client:only="react"
+/>
+
+### useResponsive Hook
+
+<code 
+  className="not-content"
+  style={{ width: '100%' }} 
+  src="src/__builtins__/widgets/Row/_example/useResponsive.tsx"
+  client:only="react"
+/>

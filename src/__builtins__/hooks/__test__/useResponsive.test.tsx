@@ -13,7 +13,8 @@ describe('useResponsive', () => {
       lg: false,
       xl: false,
       xxl: false,
-      current: undefined,
+      currentSize: undefined,
+      currentIndex: undefined,
     })
   })
 
@@ -27,7 +28,8 @@ describe('useResponsive', () => {
       lg: false,
       xl: false,
       xxl: false,
-      current: 'xs',
+      currentSize: 'xs',
+      currentIndex: 0,
     })
 
     const hook2 = renderHook(() => useResponsive(576))
@@ -38,7 +40,8 @@ describe('useResponsive', () => {
       lg: false,
       xl: false,
       xxl: false,
-      current: 'sm',
+      currentSize: 'sm',
+      currentIndex: 1,
     })
   })
 
@@ -52,7 +55,8 @@ describe('useResponsive', () => {
       lg: true,
       xl: false,
       xxl: false,
-      current: 'lg',
+      currentSize: 'lg',
+      currentIndex: 3,
     })
   })
 })
