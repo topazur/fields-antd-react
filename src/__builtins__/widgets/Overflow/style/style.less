@@ -1,0 +1,24 @@
+@prefixCls: ~"fields";
+
+.@{prefixCls}-overflow {
+
+  // 计算宽度的引用元素容器
+  .@{prefixCls}-overflow-item-content,
+  .@{prefixCls}-overflow-rest-content {
+    // 定位使其不可见
+    position: fixed;
+    top: -100vh;
+    visibility: hidden;
+    // 允许换行
+    display: inline-flex;
+    width: 50vw;
+    flex-wrap: wrap;
+  }
+
+  // 最终渲染容器
+  .@{prefixCls}-overflow-container {
+    display: flex;
+    overflow: hidden;
+    transition: width 0.3s;
+  }
+}
