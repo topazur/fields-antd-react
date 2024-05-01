@@ -52,20 +52,21 @@ export const Mentions: FC<IMentionsProps> = (props) => {
   }, [request])
 
   /**
-   * @title merged filterOption
-   * @description 当 props.request 存在时关闭本地搜索
-   */
-  const mergedFilterOption = useMemo(() => {
-    return (request && allowableEvents.search) ? false : (filterOption === true ? undefined : filterOption)
-  }, [request, filterOption, allowableEvents.search])
-
-  /**
    * @title merged 数据源
    * @description 当 props.request 存在时优先使用远程数据源，否则使用 options 当作数据源
    */
   const mergedDataSource = useMemo(() => {
     return request ? dataSource : options
   }, [request, dataSource, options])
+
+  /**
+   * @title merged filterOption
+   * @description 当 props.request 存在时关闭本地搜索
+   */
+  const mergedFilterOption = useMemo(() => {
+    if (request && allowableEvents.search) { return false }
+    return filterOption === true ? undefined : filterOption
+  }, [filterOption, request, allowableEvents.search])
 
   // =====================================================
 

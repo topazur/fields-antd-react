@@ -1,6 +1,5 @@
 /* eslint-disable unused-imports/no-unused-vars */
 import { Divider } from 'antd'
-import { random } from 'radash'
 
 import { Select } from '../'
 

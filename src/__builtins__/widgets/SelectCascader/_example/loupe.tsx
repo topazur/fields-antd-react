@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Select as AntdSelect, Divider, Flex, Modal, Table } from 'antd'
 import { useRequest } from 'ahooks'
 
-import { parseCompletedTreeData, toArr } from '../../../utils'
+import { parseCompletedTreeData } from '../../../utils'
 import { Cascader } from '../'
 import { genTileTreeData, generatePromise } from './base'
 

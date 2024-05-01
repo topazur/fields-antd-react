@@ -11,8 +11,8 @@ const selectTreeEvent: ISelectTreeEvent[] = ['mount', 'popup', 'search', 'load',
 export function useSelectTreeRequest(props: ISelectTreeProps) {
   const { request, pickEvent, omitEvent } = props
 
-  /** 请求状态 */
-  const [requestStatus, setRequestStatus] = useState<ISelectTreeEvent | false>(false)
+  /** 请求状态 (beforeEvent 是触发 Event 之前的临界状态) */
+  const [requestStatus, setRequestStatus] = useState<ISelectTreeEvent | 'beforeSearch' | false>(false)
 
   /** 缓存上一次请求参数，用 ref 缓存即可，组件内部用不到，保持引用即可 */
   const prevParamsRef = useRef<any>(null)
@@ -51,8 +51,8 @@ export function useSelectTreeRequest(props: ISelectTreeProps) {
         return Promise.resolve(undefined)
       }
 
-      // 上一次还未结束的话阻止本次请求
-      if (requestStatus) {
+      // 上一次还未结束的话阻止本次请求 (不包含 beforeEvent)
+      if (requestStatus && !requestStatus.startsWith('before')) {
         return Promise.resolve(undefined)
       }
 
@@ -81,5 +81,5 @@ export function useSelectTreeRequest(props: ISelectTreeProps) {
     },
   )
 
-  return { allowableEvents, requestStatus, onRequestHandler }
+  return { allowableEvents, requestStatus, setRequestStatus, onRequestHandler }
 }

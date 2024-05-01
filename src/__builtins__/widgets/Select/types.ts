@@ -78,13 +78,16 @@ export interface ISelectCustomLoupeProps {
 
 // ===========================================================
 
+/**
+ * NOTICE: @override 已重写属性 ['options', 'showSearch', 'filterOption', 'onSearch', 'onPopupScroll']
+ */
 export interface ISelectProps<ValueType = any, OptionType extends BaseOptionType | DefaultOptionType = DefaultOptionType>
   extends Omit<
     AntdSelectProps<ValueType, OptionType>,
     // @deprecated 内部已弃用属性
     'dropdownClassName' | 'dropdownMatchSelectWidth' | 'bordered' | 'showArrow' |
     // @override 已重写属性
-    'suffixIcon' | 'onSearch' | 'onPopupScroll'
+    'suffixIcon'
 >,
   ISelectCustomRequestProps<OptionType>,
   ISelectCustomLoupeProps {

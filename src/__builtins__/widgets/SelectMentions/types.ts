@@ -40,7 +40,7 @@ export interface IMentionsCustomRequestProps<T = any> {
 // ===========================================================
 
 /**
- * NOTICE: @override 已重写属性 ['filterOption', 'onSearch']
+ * NOTICE: @override 已重写属性 ['options', 'filterOption', 'onSearch']
  */
 export interface IMentionsProps extends
   Omit<AntdMentionsProps, 'filterOption' | 'loading' | 'silent'>,

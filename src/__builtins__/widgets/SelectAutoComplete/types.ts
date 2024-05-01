@@ -40,17 +40,13 @@ export interface IAutoCompleteCustomRequestProps<T = any> {
 // ===========================================================
 
 /**
- * NOTICE: @override 已重写属性 ['onSearch']
+ * NOTICE: @override 已重写属性 ['options', 'suffixIcon', 'filterOption', 'onSearch']
  */
 export interface IAutoCompleteProps extends
   Omit<AntdAutoCompleteProps,
     // @deprecated 内部已弃用属性
     'dataSource' | 'dropdownClassName' | 'dropdownMatchSelectWidth' | 'bordered' | 'showArrow' >,
   IAutoCompleteCustomRequestProps {
-  /**
-   * 内部实现 loading 的属性
-   */
-  loading?: boolean
   /**
    * 内部实现只读状态的样式
    */

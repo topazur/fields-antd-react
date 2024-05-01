@@ -7,7 +7,7 @@ import type { CascaderProps as AntdCascaderProps } from 'antd'
  * @description // NOTICE: 是否首次加载，'mount' | 'popup' 是可选的 event 时机
  * @description 其他 event 是对应特殊场景下的
  */
-export type ICascaderEvent = 'mount' | 'popup' | 'focus' | 'search' | 'load' | 'loupe'
+export type ICascaderEvent = 'mount' | 'popup' | 'search' | 'load' | 'loupe'
 
 export interface ICascaderResponse<T = any> {
   /**
@@ -73,12 +73,15 @@ export interface ICascaderCustomLoupeProps {
 
 // ===========================================================
 
+/**
+ * NOTICE: @override 已重写属性 ['options', 'showSearch', 'onSearch', 'loadData']
+ */
 export interface ICascaderProps extends
   Omit<AntdCascaderProps,
     // @deprecated 内部已弃用属性
   'dropdownClassName' | 'bordered' | 'showArrow' |
     // @override 已重写属性
-  'multiple' | 'suffixIcon' | 'onSearch' | 'onPopupScroll' | 'defaultValue' | 'value'>,
+  'multiple' | 'suffixIcon' | 'defaultValue' | 'value'>,
   ICascaderCustomRequestProps,
   ICascaderCustomLoupeProps {
   /**

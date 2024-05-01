@@ -40,6 +40,7 @@ export const Select: FC<ISelectProps> = (props) => {
     requestDelay = 500,
     request,
     locale,
+    defaultValue: _0,
     pickEvent: _1,
     omitEvent: _2,
     ...restProps
@@ -66,14 +67,6 @@ export const Select: FC<ISelectProps> = (props) => {
   }, [request])
 
   /**
-   * @title merged filterOption
-   * @description 当 props.request 存在时关闭本地搜索
-   */
-  const mergedFilterOption = useMemo(() => {
-    return request ? false : filterOption
-  }, [request, filterOption])
-
-  /**
    * @title merged 数据源
    * @description 当 props.request 存在时优先使用远程数据源，否则使用 options 当作数据源
    */
@@ -92,9 +85,16 @@ export const Select: FC<ISelectProps> = (props) => {
    *  merged showSearch (优先级: 远程搜索 > props.showSearch)
    */
   const mergedShowSearch = useMemo(() => {
-    if (allowableEvents.search && request) { return true }
-    return showSearch
+    return (allowableEvents.search && request) ? true : showSearch
   }, [showSearch, request, allowableEvents.search])
+
+  /**
+   * @title merged filterOption
+   * @description 当 props.request 存在时关闭本地搜索
+   */
+  const mergedFilterOption = useMemo(() => {
+    return (allowableEvents.search && request) ? false : filterOption
+  }, [filterOption, request, allowableEvents.search])
 
   // =====================================================
 

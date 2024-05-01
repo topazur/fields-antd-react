@@ -53,7 +53,7 @@ export const Cascader: FC<ICascaderProps> = (props) => {
   /** 请求时序控制 */
   const fetchRef = useRef(0)
   /** 自定义 hook 处理重复的异步逻辑 */
-  const { allowableEvents, requestStatus, onRequestHandler } = useCascaderRequest(props)
+  const { allowableEvents, requestStatus, setRequestStatus, onRequestHandler } = useCascaderRequest(props)
 
   // =====================================================
 
@@ -63,16 +63,6 @@ export const Cascader: FC<ICascaderProps> = (props) => {
   const hasRequestProp = useMemo(() => {
     return !!request
   }, [request])
-
-  /**
-   * @title merged showSearch
-   * @description 当 props.request 存在时关闭本地搜索
-   */
-  const mergedShowSearch = useMemo(() => {
-    if (allowableEvents.search && request) { return true }
-    if (multiple) { return true }
-    return showSearch
-  }, [showSearch, request, allowableEvents.search, multiple])
 
   /**
    * @title merged 数据源
@@ -93,6 +83,16 @@ export const Cascader: FC<ICascaderProps> = (props) => {
   const mergedLoading = useMemo(() => {
     return !!requestStatus || loading
   }, [requestStatus, loading])
+
+  /**
+   * @title merged showSearch
+   * @description 当 props.request 存在时关闭本地搜索
+   */
+  const mergedShowSearch = useMemo(() => {
+    if (allowableEvents.search && request) { return true }
+    if (multiple) { return true }
+    return showSearch
+  }, [showSearch, request, allowableEvents.search, multiple])
 
   // =====================================================
 
@@ -213,8 +213,8 @@ export const Cascader: FC<ICascaderProps> = (props) => {
       return createElement(notFoundContent as any, { type: requestStatus })
     }
 
-    // 触发 onSearch 时显示搜索中，而不是无数据，体验感更加友好
-    if (requestStatus === 'search') {
+    // NOTICE: 触发 onSearch 时显示搜索中，而不是无数据，体验感更加友好 (当 requestStatus 为 'beforeSearch' 时，可提前显示加载状态，而不是无法关闭完全的本地搜索)
+    if (requestStatus === 'beforeSearch' || requestStatus === 'search') {
       return (
         <Empty
           className="ant-empty-small"
@@ -459,7 +459,10 @@ export const Cascader: FC<ICascaderProps> = (props) => {
         // ======= request =======
         onSearch={(value) => {
           if (onDebounceSearch) {
-            setDataSource([])
+            if (value) {
+              setRequestStatus('beforeSearch')
+              setDataSource([])
+            }
             onDebounceSearch(value)
           }
         }}

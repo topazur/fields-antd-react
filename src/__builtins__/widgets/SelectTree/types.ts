@@ -74,14 +74,14 @@ export interface ISelectTreeCustomLoupeProps {
 // ===========================================================
 
 /**
- * @override
+ * NOTICE: @override 已重写属性 ['treeData', 'showSearch', 'filterTreeNode', 'onSearch', 'loadData']
  */
 export interface ISelectTreeProps extends
   Omit<AntdSelectTreeProps,
     // @deprecated 内部已弃用属性
   'dropdownClassName' | 'dropdownMatchSelectWidth' | 'bordered' | 'showArrow' |
     // @override 已重写属性
-  'suffixIcon' | 'onSearch' | 'onPopupScroll'>,
+  'suffixIcon'>,
   ISelectTreeCustomRequestProps,
   ISelectTreeCustomLoupeProps {
   /**

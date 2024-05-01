@@ -43,6 +43,7 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
     requestDelay = 500,
     request,
     locale,
+    defaultValue: _0,
     pickEvent: _1,
     omitEvent: _2,
     ...restProps
@@ -55,7 +56,7 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
   /** 请求时序控制 */
   const fetchRef = useRef(0)
   /** 自定义 hook 处理重复的异步逻辑 */
-  const { allowableEvents, requestStatus, onRequestHandler } = useSelectTreeRequest(props)
+  const { allowableEvents, requestStatus, setRequestStatus, onRequestHandler } = useSelectTreeRequest(props)
 
   // =====================================================
 
@@ -65,15 +66,6 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
   const hasRequestProp = useMemo(() => {
     return !!request
   }, [request])
-
-  /**
-   * @title merged filterTreeNode
-   * @description 当 props.request 存在时关闭本地搜索
-   */
-  const mergedFilterTreeNode = useMemo(() => {
-    // treeNodeFilterProp, treeNodeLabelProp
-    return request ? false : filterTreeNode
-  }, [request, filterTreeNode])
 
   /**
    * @title merged 数据源
@@ -99,9 +91,17 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
    *  merged showSearch (优先级: 远程搜索 > props.showSearch)
    */
   const mergedShowSearch = useMemo(() => {
-    if (allowableEvents.search && request) { return true }
-    return showSearch
+    return (allowableEvents.search && request) ? true : showSearch
   }, [showSearch, request, allowableEvents.search])
+
+  /**
+   * @title merged filterTreeNode
+   * @description 当 props.request 存在时关闭本地搜索
+   */
+  const mergedFilterTreeNode = useMemo(() => {
+    // treeNodeFilterProp, treeNodeLabelProp
+    return (allowableEvents.search && request) ? false : filterTreeNode
+  }, [filterTreeNode, request, allowableEvents.search])
 
   // =====================================================
 
@@ -211,8 +211,8 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
       return createElement(notFoundContent as any, { type: requestStatus })
     }
 
-    // 触发 onSearch 时显示搜索中，而不是无数据，体验感更加友好
-    if (requestStatus === 'search') {
+    // NOTICE: 触发 onSearch 时显示搜索中，而不是无数据，体验感更加友好 (当 requestStatus 为 'beforeSearch' 时，可提前显示加载状态，而不是无法关闭完全的本地搜索)
+    if (requestStatus === 'beforeSearch' || requestStatus === 'search') {
       return (
         <Empty
           className="ant-empty-small"
@@ -460,7 +460,15 @@ export const SelectTree: FC<ISelectTreeProps> = (props) => {
         open={dropdownVisible}
         onDropdownVisibleChange={onVisibleSearch}
         // ======= request =======
-        onSearch={onDebounceSearch}
+        onSearch={(value) => {
+          if (onDebounceSearch) {
+            if (value) {
+              setRequestStatus('beforeSearch')
+              setDataSource([])
+            }
+            onDebounceSearch(value)
+          }
+        }}
         loadData={onLoadDataSearch}
       />
 

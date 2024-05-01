@@ -12,7 +12,6 @@ import type { IAutoCompleteProps } from './types'
 
 export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   const {
-    loading,
     options,
     // showSearch, // always true
     filterOption = true,
@@ -52,14 +51,6 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
   }, [request])
 
   /**
-   * @title merged filterOption
-   * @description 当 props.request 存在时关闭本地搜索
-   */
-  const mergedFilterOption = useMemo(() => {
-    return (request && allowableEvents.search) ? false : filterOption
-  }, [request, filterOption, allowableEvents.search])
-
-  /**
    * @title merged 数据源
    * @description 当 props.request 存在时优先使用远程数据源，否则使用 options 当作数据源
    */
@@ -72,9 +63,17 @@ export const AutoComplete: FC<IAutoCompleteProps> = (props) => {
    * @description merged loading (优先级: 请求 > 外部 prop 属性)
    */
   const mergedSuffixIcon = useMemo(() => {
-    const mergedLoading = !!requestStatus || loading
+    const mergedLoading = !!requestStatus
     return mergedLoading ? <LoadingIcon /> : suffixIcon
-  }, [requestStatus, loading, suffixIcon])
+  }, [requestStatus, suffixIcon])
+
+  /**
+   * @title merged filterOption
+   * @description 当 props.request 存在时关闭本地搜索
+   */
+  const mergedFilterOption = useMemo(() => {
+    return (request && allowableEvents.search) ? false : filterOption
+  }, [filterOption, request, allowableEvents.search])
 
   // =====================================================
 
