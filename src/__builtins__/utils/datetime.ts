@@ -105,6 +105,7 @@ export function toISOString(v: ConfigType, skipUndefined = true) {
 /**
  * @title 将各种可能的时间格式参数格式化为时间字符串
  * @param v 可能传入的时间格式
+ * @param template 格式化模板
  * @param skipUndefined 跳过 undefined 是因为参数 undefined 解析后是当前的时间
  * @returns {string|null} 字符串
  */

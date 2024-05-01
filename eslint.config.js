@@ -31,6 +31,9 @@ module.exports = antfu(
       // React
       'react/prop-types': 'off',
       'react/no-unknown-property': 'off',
+      'react/prefer-shorthand-boolean': 'off',
+      'react/no-children-to-array': 'off',
+      'react-refresh/only-export-components': 'off',
     },
   },
 )

@@ -51,7 +51,7 @@ export const DatePicker: FC<DatePickerProps> = (props) => {
     onChange(date == null ? null : toFormatString(date, valueFormat))
   }, [valueFormat, onChange])
 
-  if (props.picker === 'time') {
+  if (picker === 'time') {
     return (
       <AntdTimePicker
         {...restProps as AntdTimePickerProps}
@@ -122,7 +122,7 @@ export const DateRangePicker: FC<DateRangePickerProps> = (props) => {
     }))
   }, [valueFormat, onChange])
 
-  if (props.picker === 'time') {
+  if (picker === 'time') {
     return (
       <AntdTimePicker.RangePicker
         {...restProps as RangePickerTimeProps<any>}
