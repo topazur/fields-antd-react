@@ -54,10 +54,11 @@ const App: React.FC = (props) => {
               ? null
               : (
                 <Popover
+                  key="rest"
                   trigger="hover"
                   content={restList.map(item => createTagItem({ key: item.value, closable: true, children: item.value }))}
                 >
-                  <Tag key="rest">更多</Tag>
+                  <Tag>更多</Tag>
                 </Popover>
                 )
 
@@ -87,12 +88,14 @@ const App: React.FC = (props) => {
             const restDom = restList.length <= 0
               ? null
               : (
-                <Popover
-                  trigger="hover"
-                  content={restList.map(item => createTagItem({ key: item.value, closable: true, children: item.value }))}
-                >
-                  <Tag key="rest">{`+${restList.length}`}</Tag>
-                </Popover>
+                <span key="rest" style={{ display: 'inline-flex' }}>
+                  <Popover
+                    trigger="hover"
+                    content={restList.map(item => createTagItem({ key: item.value, closable: true, children: item.value }))}
+                  >
+                    <Tag>{`+${restList.length}`}</Tag>
+                  </Popover>
+                </span>
                 )
 
             return [itemList, restDom]

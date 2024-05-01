@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import cls from 'classnames'
 import { isFunction } from 'radash'
 
@@ -54,6 +54,29 @@ export const Overflow: FC<IOverflowProps> = (props) => {
   // 超出的下标
   const [splitIndex, setSplitIndex] = useState<number>(0)
 
+  /**
+   * @title 根据 props.restContent 类型判断折叠 dom 是固定宽度还是动态宽度
+   */
+  const calcRestContentWidth = useCallback((restWidthList: number[], itemLen: number, restLen: number, count: number) => {
+    if (!restContent) { return 0 }
+
+    const typeStr = typeof restContent
+    if (typeStr === 'object') {
+      return restWidthList[0] ?? 0
+    }
+
+    if (typeStr === 'function') {
+      if (restLen > 1) {
+        // 被折叠的个数 => itemLen - i
+        return restWidthList[String(itemLen - count).length - 1] ?? 0
+      }
+      return restWidthList[0] ?? 0
+    }
+
+    return 0
+  }, [restContent])
+
+  // https://github.com/react-component/overflow/blob/master/src/Overflow.tsx#L235
   useLayoutEffect(() => {
     const wrapperWidth = maxWidth ?? wrapperRef.current!.clientWidth
 
@@ -68,7 +91,8 @@ export const Overflow: FC<IOverflowProps> = (props) => {
     const restWidthList: number[] = Array.from(restList).map((item: any) => item.offsetWidth)
 
     // 测试 restContent 是否已超出容器宽度，若只有 restContent 都超出，则不必再往下走
-    if (Math.max(...restWidthList) >= wrapperWidth) {
+    const onlyRestContentWidth = calcRestContentWidth(restWidthList, itemLen, restLen, 0)
+    if (onlyRestContentWidth >= wrapperWidth) {
       setSplitIndex(0)
       return
     }
@@ -76,11 +100,7 @@ export const Overflow: FC<IOverflowProps> = (props) => {
     let calcWidth = 0
     for (let i = 0; i < itemLen; i++) {
       // 计算 restContent 的宽度
-      let restContentWidth = restWidthList[0]
-      if (restLen > 1) {
-        // 被折叠的个数 => itemLen - i
-        restContentWidth = restWidthList[String(itemLen - i).length - 1]
-      }
+      const restContentWidth = calcRestContentWidth(restWidthList, itemLen, restLen, i)
 
       // 累加 item 的宽度
       calcWidth += itemWidthList[i]
@@ -96,7 +116,7 @@ export const Overflow: FC<IOverflowProps> = (props) => {
         break
       }
     }
-  }, [maxWidth, content, restContent])
+  }, [maxWidth, content, restContent, calcRestContentWidth])
 
   return (
     <div
