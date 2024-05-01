@@ -1,0 +1,34 @@
+---
+title: 公共组件 - Mentions提及
+description: 用于在输入中提及某人或某事，常用于发布、聊天或评论功能。
+sidebar:
+  order: 122
+---
+
+> 比如 `@某人`、`#issue` 等场景。如若需选择的详细选项，可从 props.onSelect 获取，包装层未做处理。
+
+## 使用
+
+```tsx
+import { Mentions } from '@odinlin/fields-antd-react/__builtins__/widgets';
+
+/** 本地实现拼音搜索示例，远程需要服务端做支持 */
+// import { match } from "pinyin-pro"
+// 伪代码: props.filterOption = (inputValue, option) => !!match(option.label as string, inputValue)
+```
+
+### 备注
+
+> 代码实现基于 [antd.Mentions](https://ant.design/components/mentions-cn)、[rc-mentions](https://github.com/react-component/mentions)
+> - feat: 包含组件库所有功能，仅在其基础上扩展远程搜索功能，都是通过新增 props 实现，未覆盖原有属性。
+
+## 代码演示
+
+### 扩展远程搜索功能
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/SelectMentions/_example/base.tsx"
+  client:only="react"
+/>

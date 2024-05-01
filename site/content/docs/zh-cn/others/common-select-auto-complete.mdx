@@ -1,0 +1,37 @@
+---
+title: 公共组件 - AutoComplete自动完成
+description: 输入框自动完成功能。
+sidebar:
+  order: 121
+---
+
+> AutoComplete 是一个带提示的文本输入框，用户可以自由输入，关键词是辅助输入。<br />
+> Select 是在限定的可选项中进行选择，关键词是选择。<br />
+> **总结: AutoComplete 是允许仅输入但是不选择的；对于 Select 选择操作是必须的。**
+
+## 使用
+
+```tsx
+import { AutoComplete } from '@odinlin/fields-antd-react/__builtins__/widgets';
+
+/** 本地实现拼音搜索示例，远程需要服务端做支持 */
+// import { match } from "pinyin-pro"
+// 伪代码: props.filterOption = (inputValue, option) => !!match(option.label as string, inputValue)
+```
+
+### 备注
+
+> 代码实现基于 [antd.AutoComplete](https://ant.design/components/auto-complete-cn)、[rc-select](https://github.com/react-component/select)
+> - feat: 通过 css 覆盖实现 readOnly 效果。
+> - feat: 包含组件库所有功能，仅在其基础上扩展远程搜索功能，都是通过新增 props 实现，未覆盖原有属性。
+
+## 代码演示
+
+### 扩展远程搜索功能
+
+<code
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/SelectAutoComplete/_example/base.tsx"
+  client:only="react"
+/>

@@ -1,0 +1,42 @@
+@prefixCls: ~"fields";
+
+// AntdSelect 没有实现 readOnly 样式，我们这里通过微调 disabled 的样式实现只读样式。
+// 好处是在 disabled 的基础上改可以复用很多逻辑，而如果直接使用 pointer-events: none; 不会触发 Popover 的 hover 事件。
+.@{prefixCls}-select-auto-complete.@{prefixCls}-select-auto-complete-readonly {
+  &.ant-select-disabled:not(.ant-select-customize-input) .ant-select-selector {
+    color: rgba(0, 0, 0, 0.88);
+    cursor: default;
+
+    input {
+      cursor: default;
+    }
+  }
+
+  // ===================================
+
+  &.ant-select-disabled.ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: #ffffff;
+  }
+
+  &.ant-select-disabled.ant-select-outlined:not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+    border-color: #4096ff;
+  }
+
+  // ===================================
+
+  &.ant-select-disabled.ant-select-filled:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-color: transparent;
+  }
+
+  &.ant-select-disabled.ant-select-filled:not(.ant-select-customize-input):not(.ant-pagination-size-changer):hover .ant-select-selector {
+    background-color: rgba(0, 0, 0, 0.06);
+  }
+
+  // ===================================
+
+  &.ant-select-disabled.ant-select-borderless:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: #ffffff;
+    border-color: transparent;
+  }
+}
