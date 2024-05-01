@@ -1,0 +1,32 @@
+---
+title: 公共组件 - 日期/时间(范围)选择器
+description: 输入或选择日期的控件
+sidebar:
+  order: 101
+---
+
+> 输入或选择日期的控件
+
+## 使用
+
+```tsx
+import { DatePicker, DateRangePicker } from '@odinlin/fields-antd-react/__builtins__/widgets';
+```
+
+### 备注
+
+> 代码实现基于 [antd.DatePicker](https://ant.design/components/date-picker-cn)、[antd.TimePicker](https://ant.design/components/time-picker-cn)
+> - 扩展 picker 属性: 合并 DatePicker 和 TimePicker 组件，扩展 picker 属性为 time 时渲染对应的时间选择器。=> 使用 `<DatePicker picker="xxx" />` 或 `<DateRangePicker picker="xxx" />` 即可。<br />
+> - 扩展 value/onChange 属性: 以日期字符串数据流转
+> - 新增 valueFormat 属性: 触发 emit 和解析绑定值的格式，仅支持字符串形式，默认值对应 picker 类型的默认格式化模板。
+
+## 代码演示
+
+### 扩展 picker 类型和数据流转模式
+
+<code 
+  className="not-content"
+  style={{ width: '100%', display: 'flex', flexDirection: 'column', rowGap: 8 }} 
+  src="src/__builtins__/widgets/DatePicker/_example/base.tsx"
+  client:only="react"
+/>
