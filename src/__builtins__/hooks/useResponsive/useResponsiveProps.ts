@@ -27,7 +27,7 @@ export function useResponsiveProps(
   return useMemo(() => {
     if (!breakpointkeys) { return props }
 
-    const aBreakpointkeys = breakpointkeys.split('|').filter(Boolean)
+    const aBreakpointkeys = breakpointkeys.split(/[,|]/).filter(Boolean)
     const bProps = aBreakpointkeys.reduce<Record<string, any>>((prev, cur) => {
       prev[cur] = calcFactor(props[cur], breakpointIndex)
       return prev

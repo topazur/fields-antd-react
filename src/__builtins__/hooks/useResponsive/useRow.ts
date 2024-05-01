@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo } from 'react'
 import cls from 'classnames'
 
+import { parseDomFlex } from '../../utils'
 import { useConfigContext, usePrefixCls } from '../usePrefixCls'
 
 import type { CSSProperties } from 'react'
@@ -104,19 +105,6 @@ export function useRow(props: any, params: IUseRowParams) {
 export type FlexType = number | LiteralUnion<'none' | 'auto'>
 export type ColSpanType = number | string
 
-function parseFlex(flex: FlexType): string {
-  if (typeof flex === 'number') {
-    return `${flex} ${flex} auto`
-  }
-
-  // eslint-disable-next-line regexp/no-unused-capturing-group
-  if (/^\d+(\.\d+)?(px|em|rem|%)$/.test(flex)) {
-    return `0 0 ${flex}`
-  }
-
-  return flex
-}
-
 export interface IUseColParams {
   flex?: FlexType
   span?: ColSpanType
@@ -166,7 +154,7 @@ export function useCol(props: any, params: IUseColParams) {
     }
 
     if (flex) {
-      calcStyle.flex = parseFlex(flex)
+      calcStyle.flex = parseDomFlex(flex)
       if (wrap === false && !calcStyle.minWidth) {
         calcStyle.minWidth = 0
       }
